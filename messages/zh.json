@@ -1,0 +1,62 @@
+{
+  "HomePage": {
+    "title": "你好世界!",
+    "about": "Go to the about page"
+  },
+  "Header": {
+    "title1": "字节在线",
+    "title2": "文转图",
+    "language": {
+      "en": "English",
+      "zh": "中文"
+    }
+  },
+  "Footer": {
+    "copyright": "版权所有"
+  },
+  "Generator": {
+    "imageSize": "图片尺寸",
+    "template": "选择模板",
+    "backgroundColor": "背景颜色",
+    "textStyle": "文字样式",
+    "fontSize": "字体大小",
+    "inputText": "输入文字",
+    "download": "下载图片",
+    "markerStyles": {
+      "none": "无效果",
+      "yellow": "黄色马克笔",
+      "green": "绿色马克笔",
+      "pink": "粉色马克笔",
+      "blue": "蓝色马克笔"
+    },
+    "sizes": {
+      "default": "1080×1350 (默认)",
+      "square": "1080×1080 (方形)",
+      "landscape": "1920×1080 (横版)",
+      "medium": "800×600",
+      "small": "500×500 (小尺寸)"
+    },
+    "templates": {
+      "solid": "自定义纯色",
+      "gradient1": "渐变模板1",
+      "gradient2": "渐变模板2",
+      "gradient3": "渐变模板3",
+      "gradient4": "渐变模板4",
+      "gradient5": "渐变模板5",
+      "gradient6": "渐变模板6",
+      "wave": "波浪模板",
+      "dots": "点阵模板",
+      "hexagon": "六边形模板",
+      "grid": "网格模板",
+      "gradient7": "渐变模板7",
+      "gradient8": "渐变模板8",
+      "gradient9": "渐变模板9",
+      "gradient10": "渐变模板10",
+      "gradient11": "渐变模板11",
+      "gradient12": "渐变模板12",
+      "stripes": "条纹模板",
+      "circles": "圆圈模板",
+      "triangles": "三角形模板"
+    }
+  }
+}

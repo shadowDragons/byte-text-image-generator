@@ -1,0 +1,62 @@
+{
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  },
+  "Header": {
+    "title1": "ByteOnline",
+    "title2": "Text2Image",
+    "language": {
+      "en": "English",
+      "zh": "中文"
+    }
+  },
+  "Footer": {
+    "copyright": "All rights reserved."
+  },
+  "Generator": {
+    "imageSize": "Image Size",
+    "template": "Select Template",
+    "backgroundColor": "Background Color",
+    "textStyle": "Text Style",
+    "fontSize": "Font Size",
+    "inputText": "Input Text",
+    "download": "Download Image",
+    "markerStyles": {
+      "none": "No Effect",
+      "yellow": "Yellow Marker",
+      "green": "Green Marker",
+      "pink": "Pink Marker",
+      "blue": "Blue Marker"
+    },
+    "sizes": {
+      "default": "1080×1350 (Default)",
+      "square": "1080×1080 (Square)",
+      "landscape": "1920×1080 (Landscape)",
+      "medium": "800×600",
+      "small": "500×500 (Small)"
+    },
+    "templates": {
+      "solid": "Custom Solid Color",
+      "gradient1": "Gradient Template 1",
+      "gradient2": "Gradient Template 2",
+      "gradient3": "Gradient Template 3",
+      "gradient4": "Gradient Template 4",
+      "gradient5": "Gradient Template 5",
+      "gradient6": "Gradient Template 6",
+      "wave": "Wave Template",
+      "dots": "Dots Template",
+      "hexagon": "Hexagon Template",
+      "grid": "Grid Template",
+      "gradient7": "Gradient Template 7",
+      "gradient8": "Gradient Template 8",
+      "gradient9": "Gradient Template 9",
+      "gradient10": "Gradient Template 10",
+      "gradient11": "Gradient Template 11",
+      "gradient12": "Gradient Template 12",
+      "stripes": "Stripes Pattern",
+      "circles": "Circles Pattern",
+      "triangles": "Triangles Pattern"
+    }
+  }
+}
