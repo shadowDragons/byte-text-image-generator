@@ -26,7 +26,7 @@
 
 ### Vercel 部署
 
-[![使用 Vercel 部署](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shadowDragons/text-to-image)
+[![使用 Vercel 部署](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shadowDragons/text2image)
 
 ### 本地开发
 

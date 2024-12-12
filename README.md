@@ -26,7 +26,7 @@ Visit [https://text-image.tool.vin](https://text-image.tool.vin) to see the live
 
 ### Deploy on Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shadowDragons/text-to-image)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shadowDragons/text2image)
 
 ### Local Development
 
