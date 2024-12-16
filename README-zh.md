@@ -106,6 +106,12 @@ NEXT_PUBLIC_GA_ID=你的GA跟踪ID
 
 Junexus ([https://byte.ink](https://byte.ink))
 
+## 支持项目
+
+如果这个项目对您有帮助，可以请我喝杯咖啡：
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://byte.ink/zh/sponsor)
+
 ## 开发计划
 
 - [ ] 社交媒体卡片

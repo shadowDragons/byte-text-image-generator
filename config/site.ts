@@ -26,7 +26,18 @@ const baseSiteConfig = {
     shortcut: '/logo.png',
     apple: '/logo.png', // apple-touch-icon.png
   },
-  headerLinks: [{ name: 'twitter', href: 'https://twitter.com/shadow06368306', icon: BsTwitterX }],
+  headerLinks: [
+    {
+      name: 'github',
+      href: 'https://github.com/shadowDragons/text2image',
+      icon: BsGithub,
+    },
+    {
+      name: 'twitter',
+      href: 'https://twitter.com/shadow06368306',
+      icon: BsTwitterX,
+    },
+  ],
   footerLinks: [
     { name: 'email', href: 'mailto:shadowdragon4399@gmail.com', icon: MdEmail },
     { name: 'twitter', href: 'https://twitter.com/shadow06368306', icon: BsTwitterX },

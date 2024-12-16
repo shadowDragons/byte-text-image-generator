@@ -96,7 +96,13 @@ NEXT_PUBLIC_GA_ID=your-ga-id
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We welcome contributions! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
@@ -105,6 +111,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Author
 
 Junexus ([https://byte.ink](https://byte.ink))
+
+## Support
+
+If you find this project helpful, consider buying me a coffee:
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://byte.ink/en/sponsor)
 
 ## Roadmap
 
