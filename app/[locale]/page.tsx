@@ -539,120 +539,125 @@ export default function Home() {
 
   return (
     <div className='container mx-auto p-4'>
-      {/* 添加尺寸选择 */}
-      <div className='mb-4'>
-        <label className='block mb-2'>{t('imageSize')}</label>
-        <div className='flex overflow-x-auto pb-4 space-x-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
-          {sizeOptions.map((size, index) => (
-            <button
-              key={index}
-              onClick={() => setSelectedSize(size)}
-              className={`flex-none px-4 py-2 rounded-lg transition-all ${
-                selectedSize === size
-                  ? 'bg-blue-500 text-white shadow-lg transform scale-105'
-                  : 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-100'
-              }`}
-            >
-              {t(`sizes.${size.key}`)}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* 模板选择部分 */}
-      <div className='mb-4'>
-        <label className='block mb-2'>{t('template')}：</label>
-        <div className='relative'>
-          <div className='flex overflow-x-auto pb-4 pl-0.5 pt-0.5 space-x-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
-            {templates.map(template => (
-              <div
-                key={template.id}
-                className={`flex-none w-60 cursor-pointer rounded-lg transition-all hover:shadow-lg ${
-                  selectedTemplate.id === template.id ? 'ring-2 ring-blue-500 shadow-lg' : ''
-                }`}
-                onClick={() => setSelectedTemplate(template)}
-              >
-                <div
-                  className='w-full h-40 rounded-lg'
-                  style={{
-                    background: template.backgroundColor,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
+      {/* 使用网格布局创建左右结构 */}
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+        {/* 左侧设置面板 */}
+        <div className='space-y-6'>
+          {/* 尺寸选择 */}
+          <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
+            <label className='block mb-2 font-medium'>{t('imageSize')}</label>
+            <div className='flex overflow-x-auto pb-4 space-x-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
+              {sizeOptions.map((size, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedSize(size)}
+                  className={`flex-none px-4 py-2 rounded-lg transition-all ${
+                    selectedSize === size
+                      ? 'bg-blue-500 text-white shadow-lg transform scale-105'
+                      : 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-100'
+                  }`}
                 >
-                  {template.pattern && <div className='w-20 h-20 rounded-full' style={{ backgroundColor: '#c0392b' }} />}
+                  {t(`sizes.${size.key}`)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 模板选择 */}
+          <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
+            <label className='block mb-2 font-medium'>{t('template')}：</label>
+            <div className='flex overflow-x-auto pb-4 space-x-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
+              {templates.map(template => (
+                <div
+                  key={template.id}
+                  className={`flex-none cursor-pointer rounded-lg transition-all hover:shadow-lg ${
+                    selectedTemplate.id === template.id ? 'ring-2 ring-blue-500 shadow-lg' : ''
+                  }`}
+                  onClick={() => setSelectedTemplate(template)}
+                >
+                  <div
+                    className='w-40 h-28 rounded-lg'
+                    style={{
+                      background: template.backgroundColor,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {template.pattern && <div className='w-12 h-12 rounded-full' style={{ backgroundColor: '#c0392b' }} />}
+                  </div>
+                  <p className='text-center mt-2 text-sm'>{t(`templates.${template.key}`)}</p>
                 </div>
-                <p className='text-center mt-2 pb-2'>{t(`templates.${template.key}`)}</p>
+              ))}
+            </div>
+          </div>
+
+          {/* 背景颜色选择器 */}
+          {selectedTemplate.type === 'solid' && (
+            <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
+              <label className='block mb-2 font-medium'>{t('backgroundColor')}：</label>
+              <div className='flex items-center gap-4'>
+                <input type='color' value={backgroundColor} onChange={e => setBackgroundColor(e.target.value)} className='w-12 h-12 rounded cursor-pointer' />
+                <span className='text-sm'>{backgroundColor.toUpperCase()}</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
+            </div>
+          )}
 
-      {selectedTemplate.type === 'solid' && (
-        <div className='mb-4'>
-          <label className='block mb-2'>{t('backgroundColor')}：</label>
-          <div className='flex items-center gap-4'>
-            <input
-              type='color'
-              value={backgroundColor}
-              onChange={e => {
-                setBackgroundColor(e.target.value)
-                // 不需要手动调用 generateImage，useEffect 会处理
-              }}
-              className='w-12 h-12 rounded cursor-pointer'
+          {/* 文字样式设置 */}
+          <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
+            <label className='block mb-2 font-medium'>{t('textStyle')}：</label>
+            <div className='space-y-4'>
+              <div className='flex flex-wrap gap-2'>
+                {markerStyles.map(style => (
+                  <button
+                    key={style.id}
+                    onClick={() => applyMarker(style.id)}
+                    className={`px-4 py-2 rounded transition-colors ${
+                      style.id === 'none' ? 'bg-gray-200 hover:bg-gray-300' : 'text-gray-800 hover:brightness-95'
+                    }`}
+                    style={{
+                      backgroundColor: style.id === 'none' ? undefined : style.color,
+                    }}
+                  >
+                    {t(`markerStyles.${style.key}`)}
+                  </button>
+                ))}
+              </div>
+
+              <div className='flex items-center gap-2'>
+                <label>{t('fontSize')}：</label>
+                <input type='range' min='20' max='80' value={textStyle.fontSize} onChange={handleFontSizeChange} className='w-48' />
+                <span>{textStyle.fontSize}px</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 文本输入 */}
+          <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
+            <label className='block mb-2 font-medium'>{t('inputText')}：</label>
+            <div
+              className='border p-2 w-full rounded-lg min-h-[8rem] whitespace-pre-wrap'
+              contentEditable
+              onInput={handleTextChange}
+              onMouseUp={handleTextSelect}
+              style={{ lineHeight: '1.5' }}
             />
-            <span className='text-sm'>{backgroundColor.toUpperCase()}</span>
           </div>
-        </div>
-      )}
 
-      <div className='mb-4'>
-        <label className='block mb-2'>{t('textStyle')}：</label>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
-          <div className='flex flex-wrap gap-2'>
-            {markerStyles.map(style => (
-              <button
-                key={style.id}
-                onClick={() => applyMarker(style.id)}
-                className={`px-4 py-2 rounded transition-colors ${style.id === 'none' ? 'bg-gray-200 hover:bg-gray-300' : 'text-gray-800 hover:brightness-95'}`}
-                style={{
-                  backgroundColor: style.id === 'none' ? undefined : style.color,
-                }}
-              >
-                {t(`markerStyles.${style.key}`)}
-              </button>
-            ))}
+          {/* 下载按钮 */}
+          <div className='flex justify-center'>
+            <button onClick={downloadImage} className='bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors'>
+              {t('download')}
+            </button>
           </div>
         </div>
 
-        <div className='flex items-center gap-2'>
-          <label>{t('fontSize')}：</label>
-          <input type='range' min='20' max='80' value={textStyle.fontSize} onChange={handleFontSizeChange} className='w-48' />
-          <span>{textStyle.fontSize}px</span>
+        {/* 右侧预览面板 - 固定位置 */}
+        <div className='lg:sticky lg:top-6 space-y-4'>
+          <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
+            <canvas ref={canvasRef} className='w-full rounded-lg'></canvas>
+          </div>
         </div>
-      </div>
-
-      <div className='mb-4'>
-        <label className='block mb-2'>{t('inputText')}：</label>
-        <div
-          className='border p-2 w-full rounded-lg min-h-[8rem] whitespace-pre-wrap'
-          contentEditable
-          onInput={handleTextChange}
-          onMouseUp={handleTextSelect}
-          style={{ lineHeight: '1.5' }}
-        />
-      </div>
-
-      <div className='space-x-4 mb-4'>
-        <button onClick={downloadImage} className='bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors'>
-          {t('download')}
-        </button>
-      </div>
-
-      <div className='mt-4'>
-        <canvas ref={canvasRef} className='border rounded-lg max-w-full'></canvas>
       </div>
     </div>
   )

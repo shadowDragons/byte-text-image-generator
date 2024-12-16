@@ -45,7 +45,7 @@ export default async function RootLayout({ children, params: { locale } }: { chi
         <ThemeProvider attribute='class' defaultTheme={siteConfig.defaultNextTheme} enableSystem>
           <NextIntlClientProvider messages={messages}>
             <Header />
-            <main className='flex flex-col items-center py-6'>{children}</main>
+            <main className='flex flex-col items-center py-6 max-w-[1920px] mx-auto'>{children}</main>
             <Footer />
             <Analytics />
             <TailwindIndicator />
