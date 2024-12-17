@@ -2,7 +2,7 @@
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
 
-// 添加图片规格选项
+// Image size options
 const sizeOptions = [
   { width: 1080, height: 1350, key: 'default' },
   { width: 1080, height: 1080, key: 'square' },
@@ -11,7 +11,7 @@ const sizeOptions = [
   { width: 500, height: 500, key: 'small' },
 ]
 
-// 修改模板定义
+// Template definitions
 const templates = [
   {
     id: 1,
@@ -162,7 +162,7 @@ const templates = [
   },
 ]
 
-// 定义马克笔样式选项
+// Marker style options
 const markerStyles = [
   { id: 'none', color: 'none', key: 'none' },
   { id: 'yellow', color: '#ffd700', key: 'yellow' },
@@ -172,7 +172,7 @@ const markerStyles = [
 ]
 
 interface CharacterStyle {
-  marker: string // 马克笔样式的 id
+  marker: string // Marker style ID
 }
 
 interface Character {
@@ -180,7 +180,7 @@ interface Character {
   style: CharacterStyle
 }
 
-// 添加 TextStyle 接口定义
+// TextStyle interface definition
 interface TextStyle {
   fontSize: number
 }
@@ -197,7 +197,7 @@ export default function Home() {
   const [selectedSize, setSelectedSize] = useState(sizeOptions[0])
   const [backgroundColor, setBackgroundColor] = useState('#2c3e50')
 
-  // 当输入文本时，转换为 characters 数组
+  // Convert input text to characters array
   const handleTextChange = (e: React.FormEvent<HTMLDivElement>) => {
     const newText = e.currentTarget.textContent || ''
     const newCharacters = newText.split('').map(char => ({
@@ -209,7 +209,7 @@ export default function Home() {
     setCharacters(newCharacters)
   }
 
-  // 处理文本选择
+  // Handle text selection
   const handleTextSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const selection = window.getSelection()
     if (!selection) return
@@ -218,7 +218,7 @@ export default function Home() {
     const start = selection.anchorOffset
     const end = selection.focusOffset
 
-    // 计算选中的字符索引
+    // Calculate selected character indices
     const indexes = []
     for (let i = Math.min(start, end); i < Math.max(start, end); i++) {
       indexes.push(i)
@@ -226,7 +226,7 @@ export default function Home() {
     setSelectedIndexes(indexes)
   }
 
-  // 应用马克笔样式
+  // Apply marker style
   const applyMarker = (markerId: string) => {
     setCharacters(prev => {
       const newCharacters = [...prev]
@@ -248,7 +248,7 @@ export default function Home() {
     let currentLine: Character[] = []
     const lines: Character[][] = []
 
-    // 计算换行
+    // Calculate line breaks
     for (let char of characters) {
       const testLine = [...currentLine, char]
       const testText = testLine.map(c => c.char).join('')
@@ -266,22 +266,22 @@ export default function Home() {
       lines.push(currentLine)
     }
 
-    // 计算总高度并居中
+    // Calculate total height and center
     const totalHeight = lines.length * lineHeight
     const startY = y - totalHeight / 2 + lineHeight / 2
 
-    // 绘制每一行文字
+    // Draw each line of text
     lines.forEach((line, lineIndex) => {
       const lineY = startY + lineIndex * lineHeight
       const lineText = line.map(c => c.char).join('')
       const lineWidth = context.measureText(lineText).width
       let currentX = x - lineWidth / 2
 
-      // 逐字符绘制
+      // Draw character by character
       line.forEach(char => {
         const charWidth = context.measureText(char.char).width
 
-        // 如果有马克笔效果，先绘制背景
+        // Draw marker effect background if present
         if (char.style.marker !== 'none') {
           const markerStyle = markerStyles.find(style => style.id === char.style.marker)
           if (markerStyle) {
@@ -289,7 +289,7 @@ export default function Home() {
             context.fillStyle = markerStyle.color
             context.globalAlpha = 0.3
 
-            // 绘制马克笔效果（矩形）
+            // Draw marker effect (rectangle)
             const markerHeight = textStyle.fontSize
             context.fillRect(currentX, lineY - markerHeight / 2, charWidth, markerHeight)
 
@@ -297,10 +297,10 @@ export default function Home() {
           }
         }
 
-        // 绘制文字
+        // Draw text
         context.save()
 
-        // 设置文字颜色
+        // Set text color
         if (selectedTemplate.type === 'solid') {
           const rgb = hexToRgb(backgroundColor)
           if (rgb) {
@@ -308,18 +308,18 @@ export default function Home() {
             context.fillStyle = brightness > 128 ? '#000000' : '#ffffff'
           }
         } else if (selectedTemplate.type === 'pattern') {
-          // 在图案背景上使用深色文字
+          // Use dark text on pattern background
           context.fillStyle = '#000000'
         } else {
           context.fillStyle = '#ffffff'
         }
 
-        // 绘制文字
+        // Draw text
         context.fillText(char.char, currentX, lineY)
 
         context.restore()
 
-        // 更新 X 坐标
+        // Update X coordinate
         currentX += charWidth
       })
     })
@@ -335,9 +335,9 @@ export default function Home() {
     canvas.width = selectedSize.width
     canvas.height = selectedSize.height
 
-    // 根据模板类型绘制不同背景
+    // Draw different backgrounds based on template type
     if (selectedTemplate.type === 'solid') {
-      // 纯色背景使用颜色选择器的颜色
+      // Solid background uses color picker color
       ctx.fillStyle = backgroundColor
       ctx.fillRect(0, 0, canvas.width, canvas.height)
     } else if (selectedTemplate.type === 'gradient') {
@@ -348,11 +348,11 @@ export default function Home() {
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
     } else if (selectedTemplate.type === 'pattern') {
-      // 先填充背景色
+      // Fill background first
       ctx.fillStyle = selectedTemplate.backgroundColor
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // 根据不同的图案类型绘制
+      // Draw different patterns based on pattern type
       switch (selectedTemplate.pattern) {
         case 'wave':
           drawWavePattern(ctx, canvas.width, canvas.height)
@@ -378,11 +378,11 @@ export default function Home() {
       }
     }
 
-    // 设置字体
+    // Set font
     const fontString = `${textStyle.fontSize}px "Microsoft YaHei"`
     ctx.font = fontString
-    ctx.textAlign = 'left' // 改为左对齐，我们手动处理居中
-    ctx.textBaseline = 'middle' // 保持中线对齐
+    ctx.textAlign = 'left' // Change to left alignment, we handle centering manually
+    ctx.textBaseline = 'middle' // Keep baseline aligned
 
     const textX = canvas.width * selectedTemplate.textPosition.x
     const textY = canvas.height * selectedTemplate.textPosition.y
@@ -390,7 +390,7 @@ export default function Home() {
     wrapText(ctx, characters, textX, textY, canvas.width - canvas.width * 0.2, textStyle.fontSize * 1.5)
   }
 
-  // 添加图案绘制函数
+  // Add pattern drawing functions
   const drawWavePattern = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'
     ctx.lineWidth = 2
@@ -505,7 +505,7 @@ export default function Home() {
     }
   }
 
-  // 添加颜色转换辅助函数
+  // Color conversion helper function
   const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
     return result
@@ -517,7 +517,7 @@ export default function Home() {
       : null
   }
 
-  // 实时生成图片
+  // Generate image in real-time
   useEffect(() => {
     generateImage()
   }, [characters, selectedTemplate, textStyle, selectedSize, backgroundColor])
@@ -532,21 +532,21 @@ export default function Home() {
     link.click()
   }
 
-  // 修改 setTextStyle 的类型
+  // Modify handleFontSizeChange type
   const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTextStyle(prev => ({ ...prev, fontSize: Number(e.target.value) }))
   }
 
   return (
     <div className='container mx-auto p-4'>
-      {/* 使用网格布局创建左右结构 */}
+      {/* Use grid layout to create left-right structure */}
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-        {/* 左侧设置面板 */}
+        {/* Left settings panel */}
         <div className='space-y-6'>
-          {/* 尺寸选择 */}
+          {/* Image size selection */}
           <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
             <label className='block mb-2 font-medium'>{t('imageSize')}</label>
-            <div className='flex overflow-x-auto pb-4 space-x-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
+            <div className='flex overflow-x-auto pl-0.5 pb-4 space-x-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
               {sizeOptions.map((size, index) => (
                 <button
                   key={index}
@@ -563,10 +563,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 模板选择 */}
+          {/* Template selection */}
           <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
             <label className='block mb-2 font-medium'>{t('template')}：</label>
-            <div className='flex overflow-x-auto pb-4 space-x-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
+            <div className='flex overflow-x-auto pl-1 pt-1 pb-4 space-x-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
               {templates.map(template => (
                 <div
                   key={template.id}
@@ -592,7 +592,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 背景颜色选择器 */}
+          {/* Background color picker */}
           {selectedTemplate.type === 'solid' && (
             <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
               <label className='block mb-2 font-medium'>{t('backgroundColor')}：</label>
@@ -603,7 +603,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* 文字样式设置 */}
+          {/* Text style settings */}
           <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
             <label className='block mb-2 font-medium'>{t('textStyle')}：</label>
             <div className='space-y-4'>
@@ -632,7 +632,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 文本输入 */}
+          {/* Text input */}
           <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
             <label className='block mb-2 font-medium'>{t('inputText')}：</label>
             <div
@@ -644,7 +644,7 @@ export default function Home() {
             />
           </div>
 
-          {/* 下载按钮 */}
+          {/* Download button */}
           <div className='flex justify-center'>
             <button onClick={downloadImage} className='bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors'>
               {t('download')}
@@ -652,7 +652,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 右侧预览面板 - 固定位置 */}
+        {/* Right preview panel - fixed position */}
         <div className='lg:sticky lg:top-6 space-y-4'>
           <div className='rounded-lg border p-4 bg-white dark:bg-gray-800'>
             <canvas ref={canvasRef} className='w-full rounded-lg'></canvas>

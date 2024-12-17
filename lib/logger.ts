@@ -1,11 +1,11 @@
-import * as fs from 'fs';
-import * as winston from 'winston';
-import 'winston-daily-rotate-file';
+import * as fs from 'fs'
+import * as winston from 'winston'
+import 'winston-daily-rotate-file'
 
-const logDir: string = process.env.LOG_DIR || 'log'; // 使用环境变量或默认值
+const logDir: string = process.env.LOG_DIR || 'log' // Use environment variable or default value
 
 if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir, { recursive: true });
+  fs.mkdirSync(logDir, { recursive: true })
 }
 
 const fileTransport = new winston.transports.DailyRotateFile({
@@ -13,28 +13,25 @@ const fileTransport = new winston.transports.DailyRotateFile({
   datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
-  maxFiles: '3d',  // 保留3天的日志
-  level: 'info',   // 此传输层记录info及以上级别的日志（info, warning, error）
-});
+  maxFiles: '3d', // Keep logs for 3 days
+  level: 'info', // This transport records logs of info level and above (info, warning, error)
+})
 
 const logger: winston.Logger = winston.createLogger({
-  level: 'debug', // 最低级别
+  level: 'debug', // Minimum level
   format: winston.format.combine(
     winston.format.timestamp({
-      format: 'YYYY-MM-DD HH:mm:ss'
+      format: 'YYYY-MM-DD HH:mm:ss',
     }),
     winston.format.json()
   ),
   transports: [
     fileTransport,
     new winston.transports.Console({
-      level: 'debug', // 控制台同时也输出所有级别的日志
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.simple()
-      )
-    })
-  ]
-});
+      level: 'debug', // Console outputs logs of all levels
+      format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
+    }),
+  ],
+})
 
-export default logger;
+export default logger
