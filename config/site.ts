@@ -12,10 +12,10 @@ const baseSiteConfig = {
     {
       name: 'Junexus',
       url: 'https://byte.ink',
-      twitter: 'https://twitter.com/shadow06368306',
+      twitter: 'https://x.com/Junexus_indie',
     },
   ],
-  creator: '@shadow06368306',
+  creator: '@unexus_indie',
   themeColors: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },
@@ -34,13 +34,13 @@ const baseSiteConfig = {
     },
     {
       name: 'twitter',
-      href: 'https://twitter.com/shadow06368306',
+      href: 'https://x.com/Junexus_indie',
       icon: BsTwitterX,
     },
   ],
   footerLinks: [
     { name: 'email', href: 'mailto:shadowdragon4399@gmail.com', icon: MdEmail },
-    { name: 'twitter', href: 'https://twitter.com/shadow06368306', icon: BsTwitterX },
+    { name: 'twitter', href: 'https://x.com/Junexus_indie', icon: BsTwitterX },
     { name: 'github', href: 'https://github.com/shadowDragons', icon: BsGithub },
   ],
   footerProducts: [],
