@@ -1,6 +1,6 @@
-import LogoSVG from '@/components/icons/logo'
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { ThemedButton } from '../ThemedButton'
 import HeaderLinks from './HeaderLinks'
 import LanguageSwitcher from './LanguageSwitcher'
@@ -14,7 +14,7 @@ const Header = () => {
         <nav className='flex h-14 items-center justify-between'>
           <div className='flex items-center md:gap-x-12'>
             <Link href='/' className='flex items-center space-x-2'>
-              <LogoSVG className='h-6 w-6' />
+              <Image src='/logo.svg' alt='Logo' width={24} height={24} />
               <span className='inline-block font-bold text-xl sm:hidden'>{t('title1')}</span>
               <div className='hidden sm:flex items-center space-x-2'>
                 <span className='font-bold text-xl text-gray-950 dark:text-gray-300'>{t('title1')}</span>

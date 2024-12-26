@@ -3,8 +3,8 @@ import { BsGithub, BsTwitterX } from 'react-icons/bs'
 import { MdEmail } from 'react-icons/md'
 
 const baseSiteConfig = {
-  name: 'ByteOnline Text2Image',
-  description: 'Text to Image',
+  name: 'Byte Text Image Generator',
+  description: 'Text Image Generator',
   url: 'https://text-image.tool.vin/',
   metadataBase: '/',
   keywords: [],
@@ -29,7 +29,7 @@ const baseSiteConfig = {
   headerLinks: [
     {
       name: 'github',
-      href: 'https://github.com/shadowDragons/text2image',
+      href: 'https://github.com/shadowDragons/byte-text-image-generator',
       icon: BsGithub,
     },
     {
