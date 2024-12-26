@@ -6,7 +6,7 @@ A modern web application that converts text into beautiful images with customiza
 
 [English](README.md) | [中文](README-zh.md)
 
-![ByteOnline Text2Image](./public/card.png)
+![Byte Text Image Generator](./public/card.png)
 
 ## Features
 

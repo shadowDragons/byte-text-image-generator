@@ -4,8 +4,8 @@
     "about": "Go to the about page"
   },
   "Header": {
-    "title1": "ByteOnline",
-    "title2": "Text2Image",
+    "title1": "Byte",
+    "title2": "Text Image Generator",
     "language": {
       "en": "English",
       "zh": "中文"

@@ -6,7 +6,7 @@
 
 [English](README.md) | [中文](README-zh.md)
 
-![ByteOnline Text2Image](./public/card.png)
+![Byte Text Image Generator](./public/card.png)
 
 ## 特性
 
