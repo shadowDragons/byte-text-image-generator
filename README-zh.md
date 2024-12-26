@@ -26,15 +26,15 @@
 
 ### Vercel 部署
 
-[![使用 Vercel 部署](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shadowDragons/text2image)
+[![使用 Vercel 部署](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shadowDragons/byte-text-image-generator)
 
 ### 本地开发
 
 1. 克隆仓库
 
 ```bash
-git clone https://github.com/shadowDragons/text-to-image.git
-cd text-to-image
+git clone https://github.com/shadowDragons/byte-text-image-generator.git
+cd byte-text-image-generator
 ```
 
 2. 安装依赖
