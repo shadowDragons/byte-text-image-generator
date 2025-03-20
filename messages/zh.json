@@ -22,6 +22,18 @@
     "fontSize": "字体大小",
     "inputText": "输入文字",
     "download": "下载图片",
+    "textColor": "文字颜色",
+    "textColors": {
+      "auto": "自动",
+      "white": "白色",
+      "black": "黑色",
+      "red": "红色",
+      "blue": "蓝色",
+      "green": "绿色",
+      "yellow": "黄色",
+      "orange": "橙色",
+      "purple": "紫色"
+    },
     "markerStyles": {
       "none": "无效果",
       "yellow": "黄色马克笔",

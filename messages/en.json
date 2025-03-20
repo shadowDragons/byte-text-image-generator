@@ -22,6 +22,18 @@
     "fontSize": "Font Size",
     "inputText": "Input Text",
     "download": "Download Image",
+    "textColor": "Text Color",
+    "textColors": {
+      "auto": "Auto",
+      "white": "White",
+      "black": "Black",
+      "red": "Red",
+      "blue": "Blue",
+      "green": "Green",
+      "yellow": "Yellow",
+      "orange": "Orange",
+      "purple": "Purple"
+    },
     "markerStyles": {
       "none": "No Effect",
       "yellow": "Yellow Marker",

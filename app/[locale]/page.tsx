@@ -171,8 +171,22 @@ const markerStyles = [
   { id: 'blue', color: '#87cefa', key: 'blue' },
 ]
 
+// Text color options
+const textColorOptions = [
+  { id: 'auto', color: 'auto', key: 'auto' },
+  { id: 'white', color: '#ffffff', key: 'white' },
+  { id: 'black', color: '#000000', key: 'black' },
+  { id: 'red', color: '#fab1a0', key: 'red' },
+  { id: 'blue', color: '#a6c0fe', key: 'blue' },
+  { id: 'green', color: '#b5e6b5', key: 'green' },
+  { id: 'yellow', color: '#ffeaa7', key: 'yellow' },
+  { id: 'orange', color: '#fad390', key: 'orange' },
+  { id: 'purple', color: '#d6a2e8', key: 'purple' },
+]
+
 interface CharacterStyle {
   marker: string // Marker style ID
+  textColor: string // Text color ID
 }
 
 interface Character {
@@ -196,6 +210,8 @@ export default function Home() {
   })
   const [selectedSize, setSelectedSize] = useState(sizeOptions[0])
   const [backgroundColor, setBackgroundColor] = useState('#2c3e50')
+  const [selectedTextColor, setSelectedTextColor] = useState(textColorOptions[0])
+  const [globalTextColor, setGlobalTextColor] = useState('auto')
 
   // Convert input text to characters array
   const handleTextChange = (e: React.FormEvent<HTMLDivElement>) => {
@@ -204,6 +220,7 @@ export default function Home() {
       char,
       style: {
         marker: 'none',
+        textColor: globalTextColor,
       },
     }))
     setCharacters(newCharacters)
@@ -215,15 +232,24 @@ export default function Home() {
     if (!selection) return
 
     const target = e.currentTarget
+    const text = target.textContent || ''
     const start = selection.anchorOffset
     const end = selection.focusOffset
 
-    // Calculate selected character indices
+    // 确保开始和结束索引在正确范围内
+    if (start === end) return
+
+    // 计算选中的字符索引
     const indexes = []
-    for (let i = Math.min(start, end); i < Math.max(start, end); i++) {
+    for (let i = Math.min(start, end); i < Math.max(start, end) && i < text.length; i++) {
       indexes.push(i)
     }
-    setSelectedIndexes(indexes)
+
+    if (indexes.length > 0) {
+      setSelectedIndexes(indexes)
+      // 在控制台输出选中的索引，帮助调试
+      console.log('Selected indexes:', indexes)
+    }
   }
 
   // Apply marker style
@@ -235,12 +261,54 @@ export default function Home() {
           newCharacters[index] = {
             ...newCharacters[index],
             style: {
+              ...newCharacters[index].style,
               marker: markerId,
             },
           }
         }
       })
       return newCharacters
+    })
+  }
+
+  // Apply text color
+  const applyTextColor = (colorId: string) => {
+    if (selectedIndexes.length === 0) return
+
+    console.log('Applying color:', colorId, 'to indexes:', selectedIndexes)
+
+    setCharacters(prev => {
+      const newCharacters = [...prev]
+      selectedIndexes.forEach(index => {
+        if (index >= 0 && index < newCharacters.length) {
+          newCharacters[index] = {
+            ...newCharacters[index],
+            style: {
+              ...newCharacters[index].style,
+              textColor: colorId,
+            },
+          }
+        }
+      })
+      // 手动触发重新渲染
+      generateImage()
+      return newCharacters
+    })
+  }
+
+  // 应用全局文本颜色
+  const applyGlobalTextColor = (colorId: string) => {
+    setGlobalTextColor(colorId)
+
+    // 更新所有现有字符的颜色
+    setCharacters(prev => {
+      return prev.map(char => ({
+        ...char,
+        style: {
+          ...char.style,
+          textColor: colorId,
+        },
+      }))
     })
   }
 
@@ -300,18 +368,33 @@ export default function Home() {
         // Draw text
         context.save()
 
-        // Set text color
-        if (selectedTemplate.type === 'solid') {
-          const rgb = hexToRgb(backgroundColor)
-          if (rgb) {
-            const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000
-            context.fillStyle = brightness > 128 ? '#000000' : '#ffffff'
+        // 使用全局颜色或字符特定颜色
+        if (globalTextColor !== 'auto') {
+          // 使用全局颜色
+          const textColorOption = textColorOptions.find(option => option.id === globalTextColor)
+          if (textColorOption && textColorOption.color !== 'auto') {
+            context.fillStyle = textColorOption.color
           }
-        } else if (selectedTemplate.type === 'pattern') {
-          // Use dark text on pattern background
-          context.fillStyle = '#000000'
+        } else if (char.style.textColor && char.style.textColor !== 'auto') {
+          // 使用自定义颜色
+          const textColorOption = textColorOptions.find(option => option.id === char.style.textColor)
+          if (textColorOption && textColorOption.color !== 'auto') {
+            context.fillStyle = textColorOption.color
+          }
         } else {
-          context.fillStyle = '#ffffff'
+          // 使用自动颜色
+          if (selectedTemplate.type === 'solid') {
+            const rgb = hexToRgb(backgroundColor)
+            if (rgb) {
+              const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000
+              context.fillStyle = brightness > 128 ? '#000000' : '#ffffff'
+            }
+          } else if (selectedTemplate.type === 'pattern') {
+            // 在图案背景上使用黑色文本
+            context.fillStyle = '#000000'
+          } else {
+            context.fillStyle = '#ffffff'
+          }
         }
 
         // Draw text
@@ -331,6 +414,9 @@ export default function Home() {
 
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+
+    // 确保清除画布
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     canvas.width = selectedSize.width
     canvas.height = selectedSize.height
@@ -622,6 +708,36 @@ export default function Home() {
                     {t(`markerStyles.${style.key}`)}
                   </button>
                 ))}
+              </div>
+
+              {/* Text color selection */}
+              <div className='mt-4'>
+                <label className='block mb-2'>{t('textColor') || '文字颜色'}：</label>
+                <div className='flex flex-wrap gap-2'>
+                  {textColorOptions.map(color => (
+                    <button
+                      key={color.id}
+                      onClick={() => {
+                        setSelectedTextColor(color)
+                        applyGlobalTextColor(color.id)
+                      }}
+                      className={`px-4 py-2 rounded transition-colors ${color.id === 'auto' ? 'bg-gray-200 hover:bg-gray-300' : 'hover:brightness-95'} ${
+                        selectedTextColor.id === color.id ? 'ring-2 ring-blue-500' : ''
+                      }`}
+                      style={{
+                        backgroundColor: color.id === 'auto' ? undefined : color.color,
+                        color:
+                          color.id === 'auto'
+                            ? undefined
+                            : color.id === 'black' || color.id === 'blue' || color.id === 'purple' || color.id === 'green'
+                            ? 'white'
+                            : 'black',
+                      }}
+                    >
+                      {t(`textColors.${color.key}`) || color.key}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className='flex items-center gap-2'>

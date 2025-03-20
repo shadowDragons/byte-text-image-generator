@@ -12,6 +12,7 @@ A modern web application that converts text into beautiful images with customiza
 
 - 🎨 Multiple background templates (solid colors, gradients, patterns)
 - 🖌️ Text highlighting with marker effects
+- 🌈 Text color customization with soft palette options
 - 📏 Multiple image size options
 - 🌓 Dark/Light mode support
 - 🌍 i18n support (English & Chinese)
