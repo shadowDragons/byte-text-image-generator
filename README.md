@@ -111,13 +111,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-Junexus ([https://byte.ink](https://byte.ink))
+Junexus ([https://sphrag.com](https://sphrag.com))
 
 ## Support
 
 If you find this project helpful, consider buying me a coffee:
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://byte.ink/en/sponsor)
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://sphrag.com/en/sponsor)
 
 ## Roadmap
 
