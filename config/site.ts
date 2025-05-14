@@ -29,7 +29,7 @@ const baseSiteConfig = {
   headerLinks: [
     {
       name: 'github',
-      href: 'https://github.com/shadowDragons/byte-text-image-generator',
+      href: 'https://github.com/shadowDragons/text-image-generator',
       icon: BsGithub,
     },
     {

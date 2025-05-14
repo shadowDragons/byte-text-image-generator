@@ -27,15 +27,15 @@ Visit [https://text-image.tool.vin](https://text-image.tool.vin) to see the live
 
 ### Deploy on Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shadowDragons/byte-text-image-generator)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shadowDragons/text-image-generator)
 
 ### Local Development
 
 1. Clone the repository
 
 ```bash
-git clone https://github.com/shadowDragons/byte-text-image-generator.git
-cd byte-text-image-generator
+git clone https://github.com/shadowDragons/text-image-generator.git
+cd text-image-generator
 ```
 
 2. Install dependencies
